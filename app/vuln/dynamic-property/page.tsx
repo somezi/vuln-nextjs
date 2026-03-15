@@ -1,3 +1,11 @@
+/**
+ * Vulnerability: DOM-based XSS via Dynamic Property Access
+ * Source: location.hash
+ * Sink: self[hash]() - arbitrary global function execution
+ * SAST Rules: Semgrep dynamic-property-access, SonarQube tainted bracket notation
+ * BApp Store: AutoVader (DOM XSS) https://portswigger.net/bappstore/46a8e69964674ff8ae49774e2b720f0c
+ * Payload: #alert
+ */
 export default function DynamicPropertyPage() {
   return (
     <div>

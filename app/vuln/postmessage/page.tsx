@@ -1,3 +1,11 @@
+/**
+ * Vulnerability: DOM-based XSS via postMessage (Missing Origin Validation)
+ * Source: window message event (event.data)
+ * Sink: innerHTML
+ * SAST Rules: Semgrep postmessage-origin-check, SonarQube S2819
+ * BApp Store: AutoVader (PostMessage) https://portswigger.net/bappstore/46a8e69964674ff8ae49774e2b720f0c
+ * Payload: postMessage('<img src=x onerror=alert(1)>', '*') from attacker page
+ */
 export default function PostMessagePage() {
   return (
     <div>

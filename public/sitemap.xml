@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://vuln-nextjs.vercel.app/</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/xss-hash</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/eval-exec</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/proto-pollution</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/dynamic-property</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/postmessage</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/document-write</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/settimeout-injection</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/open-redirect</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/function-constructor</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/script-injection</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/javascript-href</loc></url>
+</urlset>

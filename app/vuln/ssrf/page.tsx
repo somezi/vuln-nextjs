@@ -18,26 +18,26 @@ type Result = {
 };
 
 const payloads = [
-  { p: "https://example.com/", note: "external — benign sanity check" },
+  { p: "https://example.com/", note: "外部 — 動作確認用 (無害)" },
   {
     p: "http://localhost:3000/api/comments",
-    note: "loop back into the same server (internal API call)",
+    note: "同一サーバへループバック (内部API呼び出し)",
   },
   {
     p: "http://169.254.169.254/latest/meta-data/",
-    note: "AWS instance metadata (works on EC2; Vercel/Lambda differ)",
+    note: "AWS インスタンスメタデータ (EC2で動作。Vercel/Lambdaは挙動が異なる)",
   },
   {
     p: "http://metadata.google.internal/computeMetadata/v1/",
-    note: "GCP metadata endpoint",
+    note: "GCP メタデータエンドポイント",
   },
   {
     p: "http://127.0.0.1:6379/",
-    note: "Redis port — banner grab / unauth access",
+    note: "Redis ポート — バナー取得 / 認証なしアクセス",
   },
   {
     p: "http://[::1]:3000/api/comments",
-    note: "IPv6 localhost — bypass naive 127.0.0.1 blocklists",
+    note: "IPv6 ローカルホスト — 単純な 127.0.0.1 ブロックを回避",
   },
 ];
 
@@ -61,11 +61,11 @@ export default function SsrfPage() {
 
   return (
     <div style={{ padding: 24, fontFamily: "system-ui, sans-serif" }}>
-      <h1>SSRF Demo</h1>
+      <h1>SSRF デモ</h1>
       <p>
-        Server fetches whatever URL you submit and returns the response —
-        no scheme/host/IP filtering. Try internal addresses, cloud metadata
-        endpoints, or port-scan targets.
+        サーバは送信されたURLをそのまま fetch してレスポンスを返す。
+        スキーム/ホスト/IPのフィルタリングは一切ない。内部アドレス、
+        クラウドメタデータエンドポイント、ポートスキャン対象などを試せる。
       </p>
 
       <form onSubmit={go} style={{ margin: "16px 0" }}>
@@ -81,11 +81,11 @@ export default function SsrfPage() {
           disabled={loading}
           style={{ marginLeft: 8, padding: "6px 12px" }}
         >
-          {loading ? "Fetching…" : "Fetch"}
+          {loading ? "実行中…" : "実行"}
         </button>
       </form>
 
-      <h3>Payloads to try (click to fill)</h3>
+      <h3>ペイロード例 (クリックで入力欄に反映)</h3>
       <ul style={{ listStyle: "none", padding: 0 }}>
         {payloads.map(({ p, note }) => (
           <li key={p} style={{ margin: "4px 0" }}>
@@ -113,7 +113,7 @@ export default function SsrfPage() {
         <>
           {result.error ? (
             <>
-              <h3>Error</h3>
+              <h3>エラー</h3>
               <pre style={{ background: "#400", color: "#fbb", padding: 12 }}>
                 {result.error}
               </pre>
@@ -121,10 +121,10 @@ export default function SsrfPage() {
           ) : (
             <>
               <h3>
-                Status: {result.status}
-                {result.truncated && " (body truncated)"}
+                ステータス: {result.status}
+                {result.truncated && " (本文は省略)"}
               </h3>
-              <h4>Response headers</h4>
+              <h4>レスポンスヘッダ</h4>
               <pre
                 style={{
                   background: "#111",
@@ -136,7 +136,7 @@ export default function SsrfPage() {
               >
                 {JSON.stringify(result.headers, null, 2)}
               </pre>
-              <h4>Response body</h4>
+              <h4>レスポンスボディ</h4>
               <pre
                 style={{
                   background: "#111",

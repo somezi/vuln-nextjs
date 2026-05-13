@@ -9,7 +9,7 @@
 export default function EvalExecPage() {
   return (
     <div>
-      <h1>Eval Exec Demo</h1>
+      <h1>eval() コード実行デモ</h1>
       <script
         dangerouslySetInnerHTML={{
           __html: `

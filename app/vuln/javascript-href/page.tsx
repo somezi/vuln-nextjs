@@ -9,7 +9,7 @@
 export default function JavascriptHrefPage() {
   return (
     <div>
-      <h1>javascript: Scheme XSS Demo</h1>
+      <h1>javascript: スキーム XSSデモ</h1>
       <div id="output"></div>
       <script
         dangerouslySetInnerHTML={{

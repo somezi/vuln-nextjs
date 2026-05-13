@@ -9,7 +9,7 @@
 export default function OpenRedirectPage() {
   return (
     <div>
-      <h1>Open Redirect Demo</h1>
+      <h1>オープンリダイレクトデモ (DOM版)</h1>
       <script
         dangerouslySetInnerHTML={{
           __html: `

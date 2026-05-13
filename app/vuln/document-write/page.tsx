@@ -9,7 +9,7 @@
 export default function DocumentWritePage() {
   return (
     <div>
-      <h1>document.write() DOM XSS Demo</h1>
+      <h1>document.write() DOM XSSデモ</h1>
       <script
         dangerouslySetInnerHTML={{
           __html: `

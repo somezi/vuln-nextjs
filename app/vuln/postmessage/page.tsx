@@ -9,7 +9,7 @@
 export default function PostMessagePage() {
   return (
     <div>
-      <h1>PostMessage Demo</h1>
+      <h1>postMessage デモ</h1>
       <div id="display"></div>
       <script
         dangerouslySetInnerHTML={{

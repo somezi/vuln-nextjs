@@ -119,6 +119,16 @@ const vulns: VulnEntry[] = [
     payload: "?href=javascript:alert(1)",
     refs: "CWE-79 · React jsx-no-script-url",
   },
+  {
+    href: "/vuln/sql-injection",
+    title: "SQL Injection (User Search)",
+    source: "GET /api/search?q=",
+    sink: "string-concatenated SQL",
+    description:
+      "サーバ側で `\"SELECT ... WHERE username = '\" + q + \"'\"` のように文字列連結でクエリを組み立てる。`' OR '1'='1` や UNION SELECT で他テーブルからデータ抽出が可能。",
+    payload: "' UNION SELECT id, name, value FROM secrets --",
+    refs: "CWE-89 · OWASP A03 · Semgrep tainted-sql-string · CodeQL js/sql-injection",
+  },
 ];
 
 export default function VulnIndexPage() {

@@ -53,12 +53,33 @@ export default function SqlInjectionPage() {
         </button>
       </form>
 
-      <h3>Payloads to try</h3>
-      <ul>
-        <li><code>alice</code></li>
-        <li><code>&apos; OR &apos;1&apos;=&apos;1</code> — returns all users</li>
-        <li><code>&apos; UNION SELECT id, name, value FROM secrets --</code> — leak secrets table</li>
-        <li><code>&apos; OR username LIKE &apos;%admin%</code> — find admin</li>
+      <h3>Payloads to try (click to fill)</h3>
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {[
+          { p: "alice", note: "normal lookup" },
+          { p: "' OR '1'='1", note: "returns all users" },
+          { p: "' UNION SELECT id, name, value FROM secrets --", note: "leak secrets table" },
+          { p: "' OR username LIKE '%admin%", note: "find admin" },
+        ].map(({ p, note }) => (
+          <li key={p} style={{ margin: "4px 0" }}>
+            <button
+              type="button"
+              onClick={() => setQ(p)}
+              style={{
+                fontFamily: "monospace",
+                padding: "4px 8px",
+                border: "1px solid #888",
+                background: "transparent",
+                color: "inherit",
+                cursor: "pointer",
+                marginRight: 8,
+              }}
+            >
+              {p}
+            </button>
+            <span style={{ color: "#888" }}>— {note}</span>
+          </li>
+        ))}
       </ul>
 
       {sql && (

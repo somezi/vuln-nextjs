@@ -15,4 +15,5 @@
   <url><loc>https://vuln-nextjs.vercel.app/vuln/sql-injection</loc></url>
   <url><loc>https://vuln-nextjs.vercel.app/vuln/stored-xss</loc></url>
   <url><loc>https://vuln-nextjs.vercel.app/vuln/css-injection</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/ssti</loc></url>
 </urlset>

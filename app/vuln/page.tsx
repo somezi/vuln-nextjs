@@ -129,6 +129,16 @@ const vulns: VulnEntry[] = [
     payload: "' UNION SELECT id, name, value FROM secrets --",
     refs: "CWE-89 · OWASP A03 · Semgrep tainted-sql-string · CodeQL js/sql-injection",
   },
+  {
+    href: "/vuln/stored-xss",
+    title: "Stored XSS (Comments)",
+    source: "POST /api/comments body",
+    sink: "dangerouslySetInnerHTML",
+    description:
+      "コメントのbodyをサーバ側でサニタイズせず保存し、クライアントが innerHTML で描画する。投稿されたHTML/JSは閲覧した全ユーザーのブラウザで実行される古典的なストアドXSS。",
+    payload: "<img src=x onerror=alert('stored XSS')>",
+    refs: "CWE-79 · OWASP A03 · ESLint react/no-danger · Semgrep react-dangerously-set-inner-html",
+  },
 ];
 
 export default function VulnIndexPage() {

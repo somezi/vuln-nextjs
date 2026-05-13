@@ -23,6 +23,18 @@ export function renderTemplate(template: string): string {
       `with (ctx) { return (${expr}); }`,
     );
     const value = fn(defaultContext, requireFn);
-    return String(value);
+    return stringify(value);
   });
+}
+
+function stringify(value: unknown): string {
+  if (value === null || value === undefined) return String(value);
+  if (typeof value === "object" || typeof value === "function") {
+    try {
+      return JSON.stringify(value, null, 2);
+    } catch {
+      return Object.prototype.toString.call(value);
+    }
+  }
+  return String(value);
 }

@@ -37,8 +37,13 @@ export async function GET(req: NextRequest) {
       truncated: text.length > MAX_BODY,
     });
   } catch (err) {
+    const e = err as Error & { cause?: Error & { code?: string } };
+    const cause = e.cause;
+    const detail = cause
+      ? `${e.message}: ${cause.code ? cause.code + " " : ""}${cause.message}`
+      : e.message;
     return NextResponse.json(
-      { requestedUrl: url, error: (err as Error).message },
+      { requestedUrl: url, error: detail },
       { status: 502 },
     );
   }

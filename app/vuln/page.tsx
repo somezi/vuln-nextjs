@@ -180,6 +180,16 @@ const vulns: VulnEntry[] = [
     payload: "//example.com/",
     refs: "CWE-601 · OWASP A01 · Semgrep open-redirect · CodeQL js/server-side-unvalidated-url-redirection",
   },
+  {
+    href: "/vuln/ssrf",
+    title: "Server-Side Request Forgery",
+    source: "GET /api/fetch?url=",
+    sink: "fetch(url) inside a server route",
+    description:
+      "ユーザー指定URLにサーバが直接 `fetch` する。スキーム/ホスト/IP帯のチェックがないため、内部サービス (localhost、private IP)、クラウドメタデータ (`169.254.169.254`)、内部ネットワークのポートスキャン、同サーバ別エンドポイントへのループバック呼び出しなどに悪用される。",
+    payload: "http://169.254.169.254/latest/meta-data/",
+    refs: "CWE-918 · OWASP A10 · Semgrep server-side-request-forgery · CodeQL js/request-forgery",
+  },
 ];
 
 export default function VulnIndexPage() {

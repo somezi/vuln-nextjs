@@ -18,4 +18,5 @@
   <url><loc>https://vuln-nextjs.vercel.app/vuln/ssti</loc></url>
   <url><loc>https://vuln-nextjs.vercel.app/vuln/path-traversal</loc></url>
   <url><loc>https://vuln-nextjs.vercel.app/vuln/server-redirect</loc></url>
+  <url><loc>https://vuln-nextjs.vercel.app/vuln/ssrf</loc></url>
 </urlset>

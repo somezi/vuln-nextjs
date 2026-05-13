@@ -17,14 +17,14 @@
 import { useState } from "react";
 
 const payloads = [
-  { p: "Hello <%= user %>!", note: "benign — context lookup" },
-  { p: "<%= 7*7 %>", note: "arithmetic — confirms code execution" },
-  { p: "<%= process.env %>", note: "leak server environment variables" },
-  { p: "<%= process.versions %>", note: "leak runtime versions" },
-  { p: "<%= require('os').hostname() %>", note: "leak host name" },
+  { p: "Hello <%= user %>!", note: "通常 — コンテキスト変数の参照" },
+  { p: "<%= 7*7 %>", note: "算術 — コード実行を確認" },
+  { p: "<%= process.env %>", note: "サーバ環境変数の漏えい" },
+  { p: "<%= process.versions %>", note: "ランタイムバージョンの漏えい" },
+  { p: "<%= require('os').hostname() %>", note: "ホスト名の漏えい" },
   {
     p: "<%= require('fs').readdirSync('.') %>",
-    note: "list files in the working directory",
+    note: "作業ディレクトリのファイル一覧取得",
   },
 ];
 
@@ -52,11 +52,11 @@ export default function SstiPage() {
 
   return (
     <div style={{ padding: 24, fontFamily: "system-ui, sans-serif" }}>
-      <h1>SSTI Demo (EJS-style template)</h1>
+      <h1>SSTI デモ (EJS風テンプレート)</h1>
       <p>
-        The server evaluates anything between <code>&lt;%=</code> and{" "}
-        <code>%&gt;</code> as JavaScript via <code>new Function()</code>. Any
-        expression you send runs inside the Node.js process.
+        サーバは <code>&lt;%=</code> と <code>%&gt;</code> に挟まれた式を{" "}
+        <code>new Function()</code> 経由で JavaScript として評価する。
+        送信した式は Node.js プロセス内で実行される。
       </p>
 
       <form onSubmit={render} style={{ margin: "16px 0" }}>
@@ -74,12 +74,12 @@ export default function SstiPage() {
         />
         <div>
           <button type="submit" style={{ padding: "6px 12px", marginTop: 8 }}>
-            Render
+            実行
           </button>
         </div>
       </form>
 
-      <h3>Payloads to try (click to fill)</h3>
+      <h3>ペイロード例 (クリックで入力欄に反映)</h3>
       <ul style={{ listStyle: "none", padding: 0 }}>
         {payloads.map(({ p, note }) => (
           <li key={p} style={{ margin: "4px 0" }}>
@@ -111,7 +111,7 @@ export default function SstiPage() {
 
       {output && (
         <>
-          <h3>Rendered output</h3>
+          <h3>レンダリング結果</h3>
           <pre
             style={{
               background: "#111",

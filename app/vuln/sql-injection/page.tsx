@@ -34,9 +34,9 @@ export default function SqlInjectionPage() {
 
   return (
     <div style={{ padding: 24, fontFamily: "system-ui, sans-serif" }}>
-      <h1>SQL Injection Demo (User Search)</h1>
+      <h1>SQLインジェクションデモ (ユーザー検索)</h1>
       <p>
-        Backend builds the query with string concatenation:
+        バックエンドは文字列連結でクエリを組み立てている:
         <code> &quot;SELECT ... WHERE username = &apos;&quot; + q + &quot;&apos;&quot;</code>
       </p>
 
@@ -45,21 +45,21 @@ export default function SqlInjectionPage() {
           type="text"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="username"
+          placeholder="ユーザー名"
           style={{ padding: 6, width: 360, border: "1px solid #888" }}
         />
         <button type="submit" style={{ marginLeft: 8, padding: "6px 12px" }}>
-          Search
+          検索
         </button>
       </form>
 
-      <h3>Payloads to try (click to fill)</h3>
+      <h3>ペイロード例 (クリックで入力欄に反映)</h3>
       <ul style={{ listStyle: "none", padding: 0 }}>
         {[
-          { p: "alice", note: "normal lookup" },
-          { p: "' OR '1'='1", note: "returns all users" },
-          { p: "' UNION SELECT id, name, value FROM secrets --", note: "leak secrets table" },
-          { p: "' OR username LIKE '%admin%", note: "find admin" },
+          { p: "alice", note: "通常の検索" },
+          { p: "' OR '1'='1", note: "全ユーザー取得" },
+          { p: "' UNION SELECT id, name, value FROM secrets --", note: "secrets テーブル漏えい" },
+          { p: "' OR username LIKE '%admin%", note: "admin を検索" },
         ].map(({ p, note }) => (
           <li key={p} style={{ margin: "4px 0" }}>
             <button
@@ -84,7 +84,7 @@ export default function SqlInjectionPage() {
 
       {sql && (
         <>
-          <h3>Executed SQL</h3>
+          <h3>実行されるSQL</h3>
           <pre style={{ background: "#111", color: "#0f0", padding: 12 }}>{sql}</pre>
         </>
       )}
@@ -95,7 +95,7 @@ export default function SqlInjectionPage() {
 
       {rows.length > 0 && (
         <>
-          <h3>Results ({rows.length})</h3>
+          <h3>結果 ({rows.length})</h3>
           <table border={1} cellPadding={6} style={{ borderCollapse: "collapse" }}>
             <thead>
               <tr>

@@ -15,11 +15,11 @@
 import { useState } from "react";
 
 const payloads = [
-  { p: "notes.txt", note: "normal lookup" },
-  { p: ".secrets/flag.txt", note: "hidden directory under baseDir" },
-  { p: "../package.json", note: "escape baseDir → repo file" },
-  { p: "../app/api/files/route.ts", note: "leak server source code" },
-  { p: "../../../../../../etc/hosts", note: "escape further → OS file (Linux/macOS)" },
+  { p: "notes.txt", note: "通常の参照" },
+  { p: ".secrets/flag.txt", note: "baseDir 配下の隠しディレクトリ" },
+  { p: "../package.json", note: "baseDir を抜けてリポジトリのファイル取得" },
+  { p: "../app/api/files/route.ts", note: "サーバのソースコードを漏えい" },
+  { p: "../../../../../../etc/hosts", note: "更に上位に抜けてOSファイル取得 (Linux/macOS)" },
 ];
 
 export default function PathTraversalPage() {
@@ -45,11 +45,11 @@ export default function PathTraversalPage() {
 
   return (
     <div style={{ padding: 24, fontFamily: "system-ui, sans-serif" }}>
-      <h1>Path Traversal Demo</h1>
+      <h1>パストラバーサルデモ</h1>
       <p>
-        Backend joins the requested name onto a fixed base directory with{" "}
-        <code>path.join(baseDir, name)</code> — no containment check. Use{" "}
-        <code>..</code> segments to read files outside the intended scope.
+        バックエンドは <code>path.join(baseDir, name)</code> で固定ベースディレクトリと
+        ファイル名を結合するだけで、範囲チェックを行っていない。<code>..</code>{" "}
+        を使うと想定スコープ外のファイルを読み出せる。
       </p>
 
       <form onSubmit={read} style={{ margin: "16px 0" }}>
@@ -57,15 +57,15 @@ export default function PathTraversalPage() {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="file name"
+          placeholder="ファイル名"
           style={{ padding: 6, width: 480, border: "1px solid #888" }}
         />
         <button type="submit" style={{ marginLeft: 8, padding: "6px 12px" }}>
-          Read
+          読み込み
         </button>
       </form>
 
-      <h3>Payloads to try (click to fill)</h3>
+      <h3>ペイロード例 (クリックで入力欄に反映)</h3>
       <ul style={{ listStyle: "none", padding: 0 }}>
         {payloads.map(({ p, note }) => (
           <li key={p} style={{ margin: "4px 0" }}>
@@ -91,7 +91,7 @@ export default function PathTraversalPage() {
 
       {resolved && (
         <>
-          <h3>Resolved path</h3>
+          <h3>解決されたパス</h3>
           <pre style={{ background: "#111", color: "#0f0", padding: 12 }}>
             {resolved}
           </pre>
@@ -106,7 +106,7 @@ export default function PathTraversalPage() {
 
       {content && (
         <>
-          <h3>File content</h3>
+          <h3>ファイル内容</h3>
           <pre
             style={{
               background: "#111",

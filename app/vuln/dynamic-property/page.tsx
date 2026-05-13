@@ -9,7 +9,7 @@
 export default function DynamicPropertyPage() {
   return (
     <div>
-      <h1>Dynamic Property Access Demo</h1>
+      <h1>動的プロパティアクセスデモ</h1>
       <script
         dangerouslySetInnerHTML={{
           __html: `

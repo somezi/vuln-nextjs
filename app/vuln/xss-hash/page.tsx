@@ -9,7 +9,7 @@
 export default function XssHashPage() {
   return (
     <div>
-      <h1>Hash XSS Demo</h1>
+      <h1>location.hash 経由のXSSデモ</h1>
       <div id="output"></div>
       <script
         dangerouslySetInnerHTML={{

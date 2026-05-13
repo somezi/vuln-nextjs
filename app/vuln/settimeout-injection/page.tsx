@@ -9,7 +9,7 @@
 export default function SetTimeoutInjectionPage() {
   return (
     <div>
-      <h1>setTimeout String Injection Demo</h1>
+      <h1>setTimeout 文字列インジェクションデモ</h1>
       <div id="output"></div>
       <script
         dangerouslySetInnerHTML={{

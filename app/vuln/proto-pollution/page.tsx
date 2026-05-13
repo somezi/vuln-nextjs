@@ -11,7 +11,7 @@
 export default function ProtoPollutionPage() {
   return (
     <div>
-      <h1>Prototype Pollution Demo</h1>
+      <h1>プロトタイプ汚染デモ</h1>
       <script
         dangerouslySetInnerHTML={{
           __html: `

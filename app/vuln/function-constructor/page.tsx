@@ -9,7 +9,7 @@
 export default function FunctionConstructorPage() {
   return (
     <div>
-      <h1>new Function() Code Injection Demo</h1>
+      <h1>new Function() コードインジェクションデモ</h1>
       <div id="output"></div>
       <script
         dangerouslySetInnerHTML={{

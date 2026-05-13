@@ -9,7 +9,7 @@
 export default function ScriptInjectionPage() {
   return (
     <div>
-      <h1>Dynamic script.src Injection Demo</h1>
+      <h1>動的 script.src インジェクションデモ</h1>
       <script
         dangerouslySetInnerHTML={{
           __html: `

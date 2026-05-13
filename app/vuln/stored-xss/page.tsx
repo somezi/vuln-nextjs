@@ -25,12 +25,12 @@ type Comment = {
 };
 
 const payloads = [
-  { p: "<b>plain bold</b>", note: "benign HTML" },
-  { p: '<img src=x onerror="alert(1)">', note: "fires on render" },
-  { p: '<svg onload="alert(document.domain)">', note: "domain leak via SVG" },
+  { p: "<b>plain bold</b>", note: "無害なHTML" },
+  { p: '<img src=x onerror="alert(1)">', note: "描画時に発火" },
+  { p: '<svg onload="alert(document.domain)">', note: "SVG経由でドメイン漏えい" },
   {
     p: '<a href="javascript:alert(1)">click me</a>',
-    note: "javascript: link (click to fire)",
+    note: "javascript: リンク (クリックで発火)",
   },
 ];
 
@@ -80,11 +80,11 @@ export default function StoredXssPage() {
 
   return (
     <div style={{ padding: 24, fontFamily: "system-ui, sans-serif" }}>
-      <h1>Stored XSS Demo (Comments)</h1>
+      <h1>ストアドXSSデモ (コメント)</h1>
       <p>
-        Server stores the comment body verbatim; the client renders each one
-        with <code>dangerouslySetInnerHTML</code>. Any HTML/JS submitted here
-        runs in every viewer&apos;s browser.
+        サーバはコメント本文をそのまま保存し、クライアントは{" "}
+        <code>dangerouslySetInnerHTML</code> で描画する。ここで送信した
+        HTML/JS は閲覧者全員のブラウザで実行される。
       </p>
 
       <form onSubmit={submit} style={{ margin: "16px 0", display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -92,22 +92,22 @@ export default function StoredXssPage() {
           type="text"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
-          placeholder="author"
+          placeholder="投稿者"
           style={{ padding: 6, width: 140, border: "1px solid #888" }}
         />
         <input
           type="text"
           value={body}
           onChange={(e) => setBody(e.target.value)}
-          placeholder="comment body (HTML allowed)"
+          placeholder="コメント本文 (HTML 可)"
           style={{ padding: 6, width: 360, border: "1px solid #888" }}
         />
         <button type="submit" style={{ padding: "6px 12px" }}>
-          Post
+          投稿
         </button>
       </form>
 
-      <h3>Payloads to try (click to fill)</h3>
+      <h3>ペイロード例 (クリックで入力欄に反映)</h3>
       <ul style={{ listStyle: "none", padding: 0 }}>
         {payloads.map(({ p, note }) => (
           <li key={p} style={{ margin: "4px 0" }}>
@@ -135,7 +135,7 @@ export default function StoredXssPage() {
         <pre style={{ background: "#400", color: "#fbb", padding: 12 }}>{error}</pre>
       )}
 
-      <h3>Comments ({comments.length})</h3>
+      <h3>コメント ({comments.length})</h3>
       <ul style={{ listStyle: "none", padding: 0 }}>
         {comments.map((c) => (
           <li
@@ -157,7 +157,7 @@ export default function StoredXssPage() {
               }}
             >
               <span>
-                #{c.id} by <b>{c.author}</b> at {c.createdAt}
+                #{c.id} 投稿者: <b>{c.author}</b> 投稿日時: {c.createdAt}
               </span>
               <button
                 type="button"
@@ -171,7 +171,7 @@ export default function StoredXssPage() {
                   fontSize: 12,
                 }}
               >
-                Delete
+                削除
               </button>
             </div>
             {/* VULNERABLE: raw HTML from server is rendered as-is */}

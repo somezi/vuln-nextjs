@@ -160,6 +160,16 @@ const vulns: VulnEntry[] = [
     payload: "<%= process.env %>",
     refs: "CWE-94 · CWE-1336 · OWASP A03 · Semgrep tainted-new-function · CodeQL js/code-injection",
   },
+  {
+    href: "/vuln/path-traversal",
+    title: "Path Traversal",
+    source: "GET /api/files?name=",
+    sink: "fs.readFileSync(path.join(baseDir, name))",
+    description:
+      "ユーザー入力のファイル名をベースディレクトリに `path.join` するだけで、`..` セグメントを含めても弾かない。サーバプロセスが読めるファイル (設定、ソース、`/etc/passwd` 等) を任意に取得できる。",
+    payload: "../package.json",
+    refs: "CWE-22 · OWASP A01 · Semgrep path-traversal-fs · CodeQL js/path-injection",
+  },
 ];
 
 export default function VulnIndexPage() {

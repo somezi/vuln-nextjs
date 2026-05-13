@@ -1,0 +1,3 @@
+FLAG{path_traversal_demo_pwned}
+ADMIN_TOKEN=sk_live_DEMO_ONLY_NOT_REAL
+DB_PASSWORD=demo_only_not_real

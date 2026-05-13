@@ -6,9 +6,12 @@
  * SAST Rules: Semgrep react-dangerously-set-inner-html, ESLint react/no-danger
  *
  * Payloads (use the buttons below):
- *   <img src=x onerror=alert(1)>
- *   <script>alert('stored')</script>
- *   <svg onload=alert(document.domain)>
+ *   <img src=x onerror="alert(1)">
+ *   <svg onload="alert(document.domain)">
+ *   <a href="javascript:alert(1)">click me</a>
+ *
+ * Note: <script> inserted via innerHTML is NOT executed by the browser
+ * (HTML5 spec). Use onerror/onload/javascript: instead.
  */
 "use client";
 
@@ -23,9 +26,12 @@ type Comment = {
 
 const payloads = [
   { p: "<b>plain bold</b>", note: "benign HTML" },
-  { p: "<img src=x onerror=alert('stored XSS')>", note: "fires on render" },
-  { p: "<svg onload=alert(document.domain)>", note: "domain leak" },
-  { p: "<script>alert(1)</script>", note: "raw script tag" },
+  { p: '<img src=x onerror="alert(1)">', note: "fires on render" },
+  { p: '<svg onload="alert(document.domain)">', note: "domain leak via SVG" },
+  {
+    p: '<a href="javascript:alert(1)">click me</a>',
+    note: "javascript: link (click to fire)",
+  },
 ];
 
 export default function StoredXssPage() {
@@ -58,6 +64,17 @@ export default function StoredXssPage() {
       return;
     }
     setBody("");
+    load();
+  }
+
+  async function remove(id: number) {
+    setError("");
+    const res = await fetch("/api/comments/" + id, { method: "DELETE" });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      setError(data.error ?? "delete failed");
+      return;
+    }
     load();
   }
 
@@ -130,8 +147,32 @@ export default function StoredXssPage() {
               borderRadius: 4,
             }}
           >
-            <div style={{ fontSize: 12, color: "#888" }}>
-              #{c.id} by <b>{c.author}</b> at {c.createdAt}
+            <div
+              style={{
+                fontSize: 12,
+                color: "#888",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span>
+                #{c.id} by <b>{c.author}</b> at {c.createdAt}
+              </span>
+              <button
+                type="button"
+                onClick={() => remove(c.id)}
+                style={{
+                  padding: "2px 8px",
+                  border: "1px solid #888",
+                  background: "transparent",
+                  color: "inherit",
+                  cursor: "pointer",
+                  fontSize: 12,
+                }}
+              >
+                Delete
+              </button>
             </div>
             {/* VULNERABLE: raw HTML from server is rendered as-is */}
             <div dangerouslySetInnerHTML={{ __html: c.body }} />

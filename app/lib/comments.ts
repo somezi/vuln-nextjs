@@ -36,3 +36,10 @@ export function addComment(author: string, body: string): Comment {
   store.push(c);
   return c;
 }
+
+export function deleteComment(id: number): boolean {
+  const idx = store.findIndex((c) => c.id === id);
+  if (idx === -1) return false;
+  store.splice(idx, 1);
+  return true;
+}

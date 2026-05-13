@@ -170,6 +170,16 @@ const vulns: VulnEntry[] = [
     payload: "../package.json",
     refs: "CWE-22 · OWASP A01 · Semgrep path-traversal-fs · CodeQL js/path-injection",
   },
+  {
+    href: "/vuln/server-redirect",
+    title: "Server-side Open Redirect",
+    source: "GET /api/redirect?to=",
+    sink: "NextResponse.redirect()",
+    description:
+      "サーバが302で返す `Location` ヘッダを `?to=` クエリだけで決定する。allow-listや同一オリジンチェックがないため、`//evil.example.com` のようなprotocol-relative URLでも外部ドメインへ飛ばせる。OAuth/SSOのcallback乗っ取りやフィッシング誘導の典型。",
+    payload: "//example.com/",
+    refs: "CWE-601 · OWASP A01 · Semgrep open-redirect · CodeQL js/server-side-unvalidated-url-redirection",
+  },
 ];
 
 export default function VulnIndexPage() {
